@@ -1,12 +1,8 @@
 function removeDuplicates(nums: number[]): number {
-    let i=0;
+    let temp = [...new Set(nums)]
+    nums.length = 0;
+    nums.push(...temp);
+    return nums.length;
 
-    nums.forEach((num, idx) => {
-        if (num !== nums[idx-1]) {
-            nums[i] = num;
-            i++;
-        }
-    });
 
-    return i
 };
