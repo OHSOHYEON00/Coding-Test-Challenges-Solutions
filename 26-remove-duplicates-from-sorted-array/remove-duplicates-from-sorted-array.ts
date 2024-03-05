@@ -1,10 +1,8 @@
 function removeDuplicates(nums: number[]): number {
-    const duplicated = [];
     let i=0;
 
-    nums.forEach(num => {
-        if (!duplicated.includes(num)) {
-            duplicated.push(num);
+    nums.forEach((num, idx) => {
+        if (num !== nums[idx-1]) {
             nums[i] = num;
             i++;
         }
