@@ -1,14 +1,12 @@
 function removeElement(nums: number[], val: number): number {
-    const originLength = nums.length;
+   let i=0;
 
-    while (nums.includes(val)) {
-        const idx = nums.findIndex(num => num === val);
-        nums.splice(idx, 1);
-    }
+    nums.forEach(num => {
+        if (num !== val) {
+            nums[i] = num;
+            i++
+        }
+    });
 
-    for(let i=0; i<nums.length - originLength; i++) {
-        nums.push(0);
-    }
-
-    return nums.length;
+    return i
 };
