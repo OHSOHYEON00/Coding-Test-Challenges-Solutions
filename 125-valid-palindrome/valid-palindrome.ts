@@ -13,18 +13,14 @@ function isPalindrome(s: string): boolean {
         return true;
     }
 
-    while (f !== e) {
-        if (lower[f] !== lower[e]) {
-            break;
-        } 
-
-        if (e - 1 === 0) {
-           return lower[f] === lower[e];
-        }
-
+    while (f < e) {
+        if (lower[f] === lower[e]) {
             f++;
             e--;
+        } else {
+            return false;
+        }
     }
 
-    return f === e;
+    return true;
 };
