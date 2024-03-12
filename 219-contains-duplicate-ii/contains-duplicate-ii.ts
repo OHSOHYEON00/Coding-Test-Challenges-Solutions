@@ -1,32 +1,17 @@
 function containsNearbyDuplicate(nums: number[], k: number): boolean {
     
+
     if (nums.length === 1 || k === 0) return false;
 
-    // 1. make hashmap Map<value of nums, Array of indexs in nums>
-    const map = new Map<number, number[]>();
 
-    nums.forEach((num, index) => {
-      if (map.get(num)) map.set(num, [...map.get(num), index]);
-      else map.set(num, [index]);
-    })
+    // ref. https://leetcode.com/problems/contains-duplicate-ii/solutions/3863824/sliding-window-o-n-time-o-1-space
+    const set = new Set<number>(); // set only has elements which its distance(its index to current i) within k.
 
-    // 2. filter to remain only if the array.length > 1
-    const sameArr = [...map.values()].filter((value) => value.length > 1);
+    for (let i=0; i<nums.length; i++) {
+        if (set.has(nums[i])) return true;// satisfy with distance within k and nums[i] === nums[j]
+        set.add(nums[i]); // if it's not in the set then add it
+        if (set.size > k) set.delete(nums[i-k]); // when distance is over k, then remove value which its index is without k
+    }
 
-    /**
-        3. double looping all indexs ([0,1,2,3] -> 0,1 / 0,2 / 0,3 / 1,2 / 1,3 ...)
-        - if abs(i-j) > k, then j will be next round
-        - if find only one, then stop all looping and return true
-     */
-    let result = false;
-
-     sameArr.forEach(arr => {
-        const isDistinct = arr.find((el, index) => {
-            return arr[index+1] !== undefined &&  Math.abs(el-arr[index+1]) <= k;
-        });
-
-        if (isDistinct !== undefined) result = true;
-     })
-
-    return result;
+    return false;
 };
