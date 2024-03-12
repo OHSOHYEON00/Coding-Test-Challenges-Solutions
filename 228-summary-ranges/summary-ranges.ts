@@ -1,8 +1,12 @@
 function summaryRanges(nums: number[]): string[] {
 
-    const smallest: number[][] = [];
+    const smallest: string[] = [];
 
     let add: number[] = [];
+
+    const formatRange = (range: number[]): string => {
+        return range.length > 1 ? `${range[0]}->${range[1]}` : `${range[0]}`;
+    }
 
     for(let i=0; i<nums.length; i++) {
 
@@ -10,17 +14,12 @@ function summaryRanges(nums: number[]): string[] {
         
         if (Math.abs(nums[i] - nums[i+1]) > 1 || i === nums.length-1) {
             if (add[0] !== nums[i]) add.push(nums[i]);
-            smallest.push(add);
+            smallest.push(formatRange(add));
             add = [];
         }
     }
 
-    return smallest.map(arr => {
-        if (arr.length === 1) {
-            return `${arr[0]}`;
-        } else {
-            return `${arr[0]}->${arr[1]}`;
-        }
-    })
+
+    return smallest;
     
 };
