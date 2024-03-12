@@ -1,25 +1,32 @@
 function isValid(s: string): boolean {
+
+    // !! edge case
+    if (s.length % 2 !== 0) return false;
+
     const match = {
         '(': ')',
         '{': '}',
         '[': ']'
     };
 
-    const stack: string[] = [];
-    let read = 0;
+    const map = new Map();
+    map.set('(', ')');
+    map.set('{', '}');
+    map.set('[', ']');
 
-    while(read < s.length) {
+    const stack: string[] = [];
+
+    for(let read=0; read<s.length; read++) {
         if (stack.length === 0) {
             stack.push(s[read]);
         } else {
-            if (match[stack[stack.length - 1]] === s[read]) {
+            if (map.get(stack[stack.length - 1]) === s[read]) {
                 stack.pop();
             } else {
                 stack.push(s[read]);
             }
         }
-        read++;
     }
 
-    return read === s.length && stack.length === 0;
+    return stack.length === 0;
 };
