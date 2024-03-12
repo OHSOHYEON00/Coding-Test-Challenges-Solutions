@@ -14,16 +14,18 @@ function isValid(s: string): boolean {
     map.set('{', '}');
     map.set('[', ']');
 
+    const arr = s.split('')
+
     const stack: string[] = [];
 
-    for(let read=0; read<s.length; read++) {
+    for(let read=0; read<arr.length; read++) {
         if (stack.length === 0) {
-            stack.push(s[read]);
+            stack.push(arr[read]);
         } else {
-            if (map.get(stack[stack.length - 1]) === s[read]) {
+            if (map.get(stack[stack.length - 1]) === arr[read]) {
                 stack.pop();
             } else {
-                stack.push(s[read]);
+                stack.push(arr[read]);
             }
         }
     }
