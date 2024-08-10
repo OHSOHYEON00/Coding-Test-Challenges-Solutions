@@ -49,6 +49,27 @@ N의 값이 그리 크지 않고 출력 순서가 입력 순서이기 때문에 
 
 3. 출력 조건에 맞게 출력한다.
 
-# 📌 시도 회차 수정 사항 (Optional)
-
 # 📌 정답 코드
+
+```
+const path = require("path");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const input = require("fs")
+  .readFileSync(filePath)
+  .toString()
+  .trim()
+  .split("\n");
+
+const list = input.slice(1, input.length).map((v) => {
+  const [w, h] = v.split(" ");
+  return { w: +w, h: +h, rank: 1 };
+});
+
+list.forEach((per) => {
+  for (let i = 0; i < list.length; i++) {
+    if (per.w < list[i].w && per.h < list[i].h) per.rank += 1;
+  }
+});
+
+console.log(list.map((v) => v.rank).join(" "));
+```
